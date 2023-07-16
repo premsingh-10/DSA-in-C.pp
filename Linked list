@@ -1,0 +1,64 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    
+    public:
+    int data;
+    Node *next;
+    
+    //constructor 
+    Node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+};
+
+
+void InsertAtHead(Node* &head,int d){
+    //new node create
+    Node* temp = new Node(d);
+    temp -> next = head;
+    head = temp;
+}
+
+void InsertAtEnd(Node* &tail,int d){
+    //new node created
+    Node* temp = new Node(d);
+    tail -> next = temp;
+    tail = tail -> next;
+}
+
+void printNode(Node* &head){
+    Node* temp = head;
+    
+    while(temp != NULL){
+        cout << temp -> data <<" ";
+        temp = temp ->next;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    // cout<<"Hello World"<<endl;
+    Node *newnode = new Node(10);
+    // cout << newnode -> data <<endl;
+    // cout << newnode -> next <<endl;
+    
+    Node* head = newnode;
+    Node* tail = newnode;
+    // printNode(head);
+    
+    // InsertAtHead(head,12);
+    // InsertAtHead(head,14);
+     
+    // InsertAtEnd(tail,12);
+    // InsertAtEnd(tail,15);
+    
+    
+    printNode(head);
+
+    return 0;
+}
