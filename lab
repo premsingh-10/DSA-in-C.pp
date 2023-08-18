@@ -1,0 +1,157 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+using namespace std;
+
+void selectionSort(int arr[],int n){
+    int small;
+    for(int i = 0; i < n ;i++){
+        small = i;
+        for(int j = i+1 ; j < n;j++){
+            if(arr[j] < arr[small]){
+                small = j;
+            }
+        }
+        swap(arr[small],arr[i]);
+    }
+}
+
+void ranksort(int arr[],int n){
+    int b[n];
+    int rank[n] = {0};
+    
+    for(int i = 1 ; i < n ; i++){
+        for(int j = 0 ;j < i;j++){
+            if(arr[i] > arr[j]){
+                rank[i]++;
+            }
+            else{
+                rank[j]++;
+            }
+        }
+    }
+    
+    for (int i = 0; i < n;  i++) {
+        b[rank[i]] = arr[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cout << b[i] << " ";
+    }
+}
+void insertionSort(int arr[],int n){
+    int j;
+    for (int i = 1; i < n; i++) {
+        int temp = arr[i];
+        j = i- 1;
+        while(j >= 0 && temp < arr[j]){
+            arr[j+1] = arr[j];
+            j = j-1;
+        }
+        arr[j+1] = temp;
+    }
+}
+
+void merge(int arr[],int start,int mid,int end){
+    int n1 = mid -start +1;
+    int n2 = end - mid;
+    int leftArray[n1];
+    int rightArray[n2];
+    
+    for (int i = 0; i < n1; i++) {
+        leftArray[i] = arr[start + i];
+    }
+    
+    for (int i = 0; i < n2; i++) {
+        rightArray[i] = arr[mid + i+1];
+    }
+    
+    int i = 0;
+    int j = 0;
+    int k = start;
+    
+    while(i < n1 && j < n2){
+        if(leftArray[i] < rightArray[j]){
+            arr[k] = leftArray[i];
+            i++;
+        }
+        else{
+            arr[k] = rightArray[j];
+            j++;
+        }
+        k++;
+    }
+    
+    while(i < n1){
+        arr[k] = leftArray[i];
+        i++;
+        k++;
+    }
+    while(j < n2){
+        arr[k] = rightArray[j];
+        j++;
+        k++;
+    }
+}
+
+int parition(int arr[],int start,int end){
+    int pivot = arr[end];
+    int i = start - 1;
+    
+    for(int j = start ; j <= end - 1; j++){
+        if(pivot > arr[j]){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+    swap(arr[end],arr[i+1]);
+    return i+1;
+}
+
+void quickSort(int arr[],int start, int end){
+    if(start < end){
+        int p = parition(arr,start,end);
+        quickSort(arr,start,p-1);
+        quickSort(arr,p+1,end);
+    }
+}
+
+void mergeSort(int arr[],int start ,int end){
+    if(start < end){
+        int mid = (start + end)/2;
+        mergeSort(arr,start,mid);
+        mergeSort(arr,mid+1,end);
+        merge(arr,start,mid,end);
+    }
+}
+
+
+void printArr(int a[], int n) 
+{  
+    int i;  
+    for (i = 0; i < n; i++)  
+        printf("%d ", a[i]); 
+    
+    cout << endl;
+}  
+
+int main()
+{
+    int a[] = { 12, 31, 25, 8, 32, 17 };  
+    int n = sizeof(a) / sizeof(a[0]);  
+    printArr(a, n);  
+    // selectionSort(a,n);
+    // ranksort(a,n);
+    // insertionSort(a,n);
+    // mergeSort(a,0,n-1);
+    quickSort(a,0,n-1);
+    
+    printArr(a,n);
+
+    return 0;
+}
